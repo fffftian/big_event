@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: url(../images/login_bg.jpg);
+}
+
+.title-box{
+    width: 400px;
+    height: 320px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.title-box h4{
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+
+}
+
+.reg-wrap{
+    display: none;
+}
