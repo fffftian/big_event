@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.layui-footer{
+    text-align: center;
+}
+.iconfont,
+.layui-icon{
+    margin-right: 8px;
+}
