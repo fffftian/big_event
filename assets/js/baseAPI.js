@@ -11,12 +11,26 @@ $.ajaxPrefilter(function (config) {
         return JSON.stringify(target)
     }
 
-    config.url = 'http://big-event-vue-api-t.itheima.net' + config.url,
+    config.url = 'http://big-event-vue-api-t.itheima.net' + config.url
 
+    if(config.url.indexOf('/my/') !== -1){
+        config.headers = {
+            Authorization: localStorage.getItem('big_news_tokens') || ''
+        }
+    }
     
     // 统一设置请求头 Content-Type 值
     config.contentType =  'application/json'
 
     // 统一设置请求的参数 - post 请求
-    config.data = format2Json(config.data)
+    config.data = config.data && format2Json(config.data)
+
+    // 统一添加错误回调
+    config.complete = function(res){
+        if(res.responseJSON?.code === 1 && res.responseJSON?.message === '身份认证失败!'){
+            // 进此处的化,可以认为请求有误
+            localStorage.clear()
+            location.href = '/login.html'
+        }
+    }
 })
