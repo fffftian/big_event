@@ -1,9 +1,11 @@
 $(function () {
     getUserInfo()
 })
-
 let layer = layui.layer
-const getUserInfo = () => {
+
+// 由 var 或者 function 关键字声明的变量可以挂载在window上面 const / let 不可以
+// 口诀: 禁止使用 var
+function getUserInfo() {
     $.ajax({
         method: 'GET',
         url:'/my/userinfo',
@@ -11,7 +13,7 @@ const getUserInfo = () => {
         //     Authorization: localStorage.getItem('big_news_tokens') || ''
         // },
         success(res) {
-            console.log(res)
+            // console.log(res)
             if(res.code !== 0) return layer.msg(res.message)
             // 按需渲染头像
             renderAvatar(res)
@@ -22,18 +24,19 @@ const getUserInfo = () => {
 
 // 渲染用户的头像
 function renderAvatar(res){
-    if(res.user_pic) {
+    if(res.data.user_pic) {
         $('.text-avatar').hide()
-        $('.userinfo img').css('src', res.user_pic)
+        $('.userinfo img').attr('src', res.data.user_pic).show()
     }else{
         $('.layui-nav-img').hide()
         // 显示文字头像,取username属性的第一个字母
         // console.log(res.data)
         const name = res.data.nickname || res.data.username
         const char = name[0].toUpperCase()
-        $('.text-avatar').html(char)
+        $('.text-avatar').html(char).show()
     }
-    $('.text').html(`欢迎&nbsp;&nbsp;${res.data.username}`)
+    const name = res.data.nickname || res.data.username
+    $('.text').html(`欢迎&nbsp;&nbsp;${name}`)
 }
 
 $('#btnLogout').on('click',function(){

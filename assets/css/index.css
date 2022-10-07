@@ -33,6 +33,11 @@ a{
     user-select: none;
 }
 
+.layui-layout-right
+.right{
+    display: none;
+}
+
 .layui-nav-img{
     width: 40px;
     height: 40px;

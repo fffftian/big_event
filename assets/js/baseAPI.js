@@ -6,7 +6,7 @@ $.ajaxPrefilter(function (config) {
         let target = {}
         source.split('&').forEach((el) => {
             let kv = el.split('=')
-            target[kv[0]] = kv[1]
+            target[kv[0]] = decodeURIComponent(kv[1])
         })
         return JSON.stringify(target)
     }
@@ -23,11 +23,14 @@ $.ajaxPrefilter(function (config) {
     config.contentType =  'application/json'
 
     // 统一设置请求的参数 - post 请求
-    config.data = config.data && format2Json(config.data)
+    if(typeof config.data !== 'object'){
+        config.data = config.data && format2Json(config.data)
+    }
+    
 
     // 统一添加错误回调
     config.complete = function(res){
-        if(res.responseJSON?.code === 1 && res.responseJSON?.message === '身份认证失败!'){
+        if(res.responseJSON?.code === 1 && res.responseJSON?.message === '身份认证失败！'){
             // 进此处的化,可以认为请求有误
             localStorage.clear()
             location.href = '/login.html'
