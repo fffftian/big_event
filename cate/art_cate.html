@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/css/cate/art_cate.css">
+</head>
+
+<body>
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <span class="title">文章分类管理</span>
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm " id="btnAddCate">添加按钮</button>
+        </div>
+        
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <colgroup>
+                  <col width="150">
+                  <col width="200">
+                  <col>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>分类名称</th>
+                    <th>分类别名</th>
+                    <th>操作</th>
+                  </tr> 
+                </thead>
+                <tbody>
+                  <!-- <tr>
+                    <td>贤心</td>
+                    <td>2016-11-29</td>
+                    <td>人生就像是一场修行</td>
+                    <td>人生就像是一场修行</td>
+                  </tr> -->
+                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <!-- 表格数据的模板 -->
+    <script type="text/html" id="tpl-table"> 
+        {{each data}}
+            <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{$value.cate_name}}</td>
+                <td>{{$value.cate_alias}}</td>
+                <td>
+                    <button type="button" class="layui-btn layui-btn-sm btn-edit" data-id="{{$value.id}}">编辑</button>
+                    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm btnDelete" data-id="{{$value.id}}">删除</button>
+                </td>
+            </tr>
+        {{/each}}
+    </script>
+
+    <script type="text/html" id="dialog-add">
+        <form class="layui-form" id="form-add" lay-filter="addForm">
+            <!-- 这是隐藏域 -->
+            <input type="hidden" name="id" value=""/>
+            <div class="layui-form-item">
+              <label class="layui-form-label">分类名称</label>
+              <div class="layui-input-block">
+                <input type="text" name="cate_name" required  lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">分类别名</label>
+              <div class="layui-input-block">
+                <!-- maxlength 属性设置输入框输入的字符长度 -->
+                <input type="text" name="cate_alias" required  lay-verify="required|nickname" placeholder="请输入分类别名" autocomplete="off" class="layui-input" maxlength="6">
+              </div>
+            </div>
+            
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <!-- lay-submit  -->
+                <button class="layui-btn" lay-submit lay-filter="formDemo" >确认添加</button>
+                <!-- type="reset" 可以将整个表单进行清空 路由器: reset 按钮 -->
+                <button type="reset" class="layui-btn layui-btn-primary" id="btnRest">重置</button>
+              </div>
+            </div>
+          </form>
+    </script>
+
+
+   
+
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <script src="/assets/lib/jquery.js"></script>
+    <script src="/assets/lib/template-web.js"></script>
+    <script src="/assets/js/baseAPI.js"></script>
+    <script src="/assets/js/cate/art_cate.js"></script>
+</body>
+
+</html>
